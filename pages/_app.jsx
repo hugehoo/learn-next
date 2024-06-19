@@ -1,15 +1,14 @@
 import '@/styles/globals.css';
 import Link from 'next/link';
+import Layout from '@/layouts/Layout';
 
-// app component
+// app component -
+// 루트 컴포넌트를 의미함
 export default function App({ Component, pageProps }) {
 	return (
-		<div>
-			<nav>
-				<Link href="/home">Home</Link> |<Link href="/login">Login</Link>
-			</nav>
+		<Layout>
 			<Component {...pageProps} />
-		</div>
+		</Layout>
 	);
 }
 
