@@ -3,15 +3,17 @@ import ProductHeader from '@/components/ProductHeader';
 import axios from 'axios';
 import { fetchProducts } from '@/api';
 import { log } from 'next/dist/server/typescript/utils';
+import ProductInfo from '@/components/ProductInfo';
 
 // Page Component
-export default function ProductDetailPage({ message, productInfo }) {
+export default function ProductDetailPage({ message, productDetail }) {
 	const title = '상품 상세 정보 페이지';
 	return (
 		<div>
 			<ProductHeader title={title} />
-			<div>ProductDetailPage: {message} </div>
-			<div>{productInfo} </div>
+			{/*<div>ProductDetailPage: {message} </div>*/}
+			{/*<div>{productInfo} </div>*/}
+			<ProductInfo productDetail={productDetail}></ProductInfo>
 		</div>
 	);
 }
@@ -21,12 +23,12 @@ export async function getServerSideProps(context) {
 	// Next.js 에서는 getServerSideProps 가 props 를 담당하는군
 	// /products/15 -> context.params.id 에 해당
 	const id = context.params.id;
-	const response = await fetchProducts(id);
+	const { data } = await fetchProducts(id);
+
 	// const response = await axios.get(`http://localhost:4000/products/${id}`);
 	return {
 		props: {
-			message: `${id} 상품 상세 페이지`,
-			productInfo: response.data.name,
+			productDetail: data,
 		},
 	};
 }
