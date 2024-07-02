@@ -11,4 +11,22 @@ function fetchProducts(productId) {
 	return instance.get(`/products/${productId}`);
 }
 
-export { fetchProducts, instance };
+function createCartItem({ id, name, price, imageUrl }) {
+	return instance.post('/carts', {
+		id,
+		name,
+		price,
+		imageUrl,
+	});
+}
+
+function fetchCarts() {
+	return instance.get('/carts');
+}
+
+function removeCartItem(id) {
+	console.log('ddd', id);
+	return instance.delete(`/carts/${id}`);
+}
+
+export { fetchProducts, createCartItem, fetchCarts, removeCartItem };
